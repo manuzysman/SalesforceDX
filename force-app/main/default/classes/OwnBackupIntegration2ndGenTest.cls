@@ -36,37 +36,15 @@ private class OwnBackupIntegration2ndGenTest {
     }
     
     @isTest
-    static void testInvocableExecuteDataBackup() {
-        copado__Environment__c env = [SELECT Id FROM copado__Environment__c LIMIT 1];
-        copado__JobStep__c step = [SELECT Id FROM copado__JobStep__c LIMIT 1];
-        
-        OwnBackupIntegration2ndGen.BackupRequest request = new OwnBackupIntegration2ndGen.BackupRequest();
-        request.environmentId = env.Id;
-        request.stepId = step.Id;
-        
-        Test.startTest();
-     //   List<String> results = OwnBackupIntegration2ndGen.invocableExecuteDataBackup(new List<OwnBackupIntegration2ndGen.BackupRequest>{request});
-        Test.stopTest();
-        
-       // System.assertEquals(1, results.size());
-       // System.assert(results[0].startsWith('Data backup process initiated for Environment ID:'));
-    }
-    
-    @isTest
     static void testExecuteDataBackup() {
         copado__Environment__c env = [SELECT Id FROM copado__Environment__c LIMIT 1];
         copado__JobStep__c step = [SELECT Id FROM copado__JobStep__c LIMIT 1];
-        
         Test.setMock(HttpCalloutMock.class, new OwnBackupMockHttpResponseGenerator());
-        
         Test.startTest();
-      //  OwnBackupIntegration2ndGen.executeDataBackup(env.Id, step.Id);
+        OwnBackupIntegration2ndGen.executeDataBackup(env.Id, step.Id);
         Test.stopTest();
-        
-        // Verify the step was updated
-        step = [SELECT copado__Result__r.copado__Status__c FROM copado__JobStep__c WHERE Id = :step.Id];
-       // System.assertEquals('Success', step.copado__Result__r.copado__Status__c);
     }
+    
     
     @isTest
     static void testCheckDataBackup() {
@@ -81,19 +59,6 @@ private class OwnBackupIntegration2ndGenTest {
         // Verify the step was updated
         step = [SELECT copado__Result__r.copado__Status__c FROM copado__JobStep__c WHERE Id = :step.Id];
         System.assertEquals('Not Started', step.copado__Result__r.copado__Status__c);
-    }
-    
-    @isTest
-    static void testScheduleIntegrationPoller() {
-        copado__JobStep__c step = [SELECT Id FROM copado__JobStep__c LIMIT 1];
-        
-        Test.startTest();
-      //  OwnBackupIntegration2ndGen.scheduleIntegrationPoller('test-service-id', step.Id, 2);
-        Test.stopTest();
-        
-        // Verify a scheduled job was created
-        List<CronTrigger> scheduledJobs = [SELECT Id FROM CronTrigger WHERE CronJobDetail.Name LIKE 'OwnBackupPoller_%'];
-        //System.assertGreaterThan(1, scheduledJobs.size());
     }
     
     @isTest
@@ -143,6 +108,8 @@ private class OwnBackupIntegration2ndGenTest {
         System.assertNotEquals(null, services);
         System.assertEquals(1, services.size());
     }
+
+    
     
     @isTest
     static void testBackupNow() {
