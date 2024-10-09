@@ -2,6 +2,10 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata"
       xmlns:n1="http://www.w3.org/2001/XMLSchema-instance">
     <classAccesses>
+        <apexClass>JobStepTriggerAfterUpdateTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>OwnBackupIntegration2ndGen</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -13,10 +17,19 @@
         <apexClass>OwnBackupIntegrationPoller</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>TestCopadoHttpCalloutMock</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <custom>false</custom>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Copado_Test__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>copado__Environment__c.Data_Backup_Enforcement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
