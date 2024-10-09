@@ -41,6 +41,16 @@ private class OwnBackupIntegration2ndGenTest {
         copado__JobStep__c step = [SELECT Id FROM copado__JobStep__c LIMIT 1];
         Test.setMock(HttpCalloutMock.class, new OwnBackupMockHttpResponseGenerator());
         Test.startTest();
+        OwnBackupIntegration2ndGen.executeDataBackup('test-org-id', step.Id);
+        Test.stopTest();
+    }
+    
+        @isTest
+    static void testExecuteDataBackup1() {
+        copado__Environment__c env = [SELECT Id FROM copado__Environment__c LIMIT 1];
+        copado__JobStep__c step = [SELECT Id FROM copado__JobStep__c LIMIT 1];
+        Test.setMock(HttpCalloutMock.class, new OwnBackupMockHttpResponseGenerator());
+        Test.startTest();
         OwnBackupIntegration2ndGen.executeDataBackup(env.Id, step.Id);
         Test.stopTest();
     }
@@ -73,6 +83,8 @@ private class OwnBackupIntegration2ndGenTest {
         step = [SELECT copado__Result__r.copado__Status__c FROM copado__JobStep__c WHERE Id = :step.Id];
         System.assertEquals('Not Started', step.copado__Result__r.copado__Status__c);
     }
+    
+
     
     @isTest
     static void testGetSessionId() {
