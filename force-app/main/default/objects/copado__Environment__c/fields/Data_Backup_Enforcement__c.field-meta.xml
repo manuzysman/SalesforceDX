@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Backup_Enforcement__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Enforce data backups when executing a Data Template deployment to this Environment. The &quot;Before and after deployment&quot; is the recommended option since it registers a precise snapshot of the deployed records for a simple Data Recovery process if needed.</description>
+    <inlineHelpText>Enforce data backups when executing a Data Template deployment to this Environment. The &quot;Before and after deployment&quot; is the recommended option since it registers a precise snapshot of the deployed records for a simple Data Recovery process if needed.</inlineHelpText>
+    <label>Data Backup Enforcement</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Before and after deployment</fullName>
+                <default>false</default>
+                <label>Before and after deployment</label>
+            </value>
+            <value>
+                <fullName>Before deployment</fullName>
+                <default>false</default>
+                <label>Before deployment</label>
+            </value>
+            <value>
+                <fullName>After deployment</fullName>
+                <default>false</default>
+                <label>After deployment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
